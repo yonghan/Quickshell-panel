@@ -3,6 +3,7 @@ import QtQuick
 import QtQuick.Layouts
 import Quickshell
 import Quickshell.Io
+import Quickshell.Services.Notifications
 import Quickshell.Wayland
 import "components"
 
@@ -10,6 +11,16 @@ import "components"
 Scope {
     id: root
     property bool shown: true
+    property bool dnd: false
+
+    // We are the notification daemon: keep everything until dismissed.
+    NotificationServer {
+        id: notifServer
+        keepOnReload: true
+        bodySupported: true
+        actionsSupported: true
+        onNotification: n => n.tracked = true
+    }
 
     IpcHandler {
         target: "panel"
@@ -71,7 +82,7 @@ Scope {
                     }
                     QuickTile {
                         icon: "󰂛"; label: "Do not disturb"
-                        onToggled: a => root.run("makoctl mode " + (a ? "-a" : "-r") + " do-not-disturb")
+                        onToggled: a => root.dnd = a
                     }
                     QuickTile {
                         icon: "󰌾"; label: "Night light"
@@ -100,20 +111,14 @@ Scope {
                     }
                 }
 
-                // Notification area
-                Rectangle {
+                MediaPlayer {}
+
+                Notifications {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-                    radius: Theme.innerRadius
-                    color: Theme.mantle
-
-                    Text {
-                        anchors.centerIn: parent
-                        text: "No new notifications"
-                        font.family: Theme.font
-                        font.pixelSize: 14
-                        color: Theme.overlay0
-                    }
+                    Layout.minimumHeight: 140
+                    model: notifServer.trackedNotifications
+                    muted: root.dnd
                 }
 
                 // Power row
