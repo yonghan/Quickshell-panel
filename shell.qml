@@ -27,24 +27,30 @@ Scope {
     PanelWindow {
         id: win
         visible: root.shown
+        // Docked flush to the right edge like a bar, reserving its width.
         anchors { top: true; right: true; bottom: true }
-        margins { top: 12; right: 12; bottom: 12 }
         implicitWidth: Theme.panelWidth
-        exclusiveZone: 0
+        exclusiveZone: Theme.panelWidth
         color: "transparent"
         WlrLayershell.namespace: "quickshell-panel"
+        WlrLayershell.layer: WlrLayer.Top
         WlrLayershell.keyboardFocus: WlrKeyboardFocus.OnDemand
 
-        Rectangle {
+        // Clip so only the inner (left) corners are rounded; the right
+        // corners are pushed off-screen to sit flush with the edge.
+        Item {
             anchors.fill: parent
+            clip: true
+
+        Rectangle {
+            anchors { fill: parent; rightMargin: -Theme.radius }
             radius: Theme.radius
             color: Theme.base
             border.width: 1
             border.color: Theme.surface1
 
             ColumnLayout {
-                anchors.fill: parent
-                anchors.margins: 22
+                anchors { fill: parent; margins: 22; rightMargin: 22 + Theme.radius }
                 spacing: 20
 
                 Header {}
@@ -143,6 +149,7 @@ Scope {
                     }
                 }
             }
+        }
         }
     }
 }

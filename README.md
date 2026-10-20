@@ -1,6 +1,6 @@
 # Quickshell Panel
 
-A Windows 10 action-center style side panel for [Quickshell](https://quickshell.org),
+A Windows 10 action-center style side panel docked to the screen edge (like a bar, on the top layer),
 with rounded corners and the Catppuccin Mocha palette (Mauve accent).
 
 - Large time with today's date underneath
