@@ -6,7 +6,9 @@ with rounded corners and the Catppuccin Mocha palette (Mauve accent).
 - Large time with today's date underneath
 - Quick-toggle tiles (Wi-Fi, Bluetooth, DND, night light, airplane, lock)
 - Volume and brightness sliders (`wpctl`, `brightnessctl`)
-- Notification area placeholder and power buttons
+- Notification centre (the panel acts as the notification daemon; stop mako/dunst first)
+- MPRIS now-playing card with transport controls and a live equalizer (needs `cava`, config in `cava.conf`)
+- Power buttons
 
 ## Usage
 

@@ -15,9 +15,13 @@ QtObject {
     readonly property color mauve: "#cba6f7"
     readonly property color red: "#f38ba8"
 
-    readonly property int radius: 20
-    readonly property int innerRadius: 14
-    readonly property int spacing: 10
-    readonly property int panelWidth: 380
+    // Sizes below are authored for 1080p; 1.25 scales them for 1440p.
+    readonly property real scale: 1.25
+    function px(n) { return Math.round(n * scale); }
+
+    readonly property int radius: px(20)
+    readonly property int innerRadius: px(14)
+    readonly property int spacing: px(10)
+    readonly property int panelWidth: px(380)
     readonly property string font: "Inter"
 }

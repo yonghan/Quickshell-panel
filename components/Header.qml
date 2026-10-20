@@ -5,7 +5,7 @@ import ".."
 
 // Large time with today's date underneath.
 ColumnLayout {
-    spacing: 2
+    spacing: Theme.px(2)
 
     SystemClock {
         id: clock
@@ -17,7 +17,7 @@ ColumnLayout {
         text: Qt.formatTime(clock.date, "hh:mm")
         color: Theme.text
         font.family: Theme.font
-        font.pixelSize: 64
+        font.pixelSize: Theme.px(64)
         font.weight: Font.Light
     }
 
@@ -25,6 +25,6 @@ ColumnLayout {
         text: Qt.formatDate(clock.date, "dddd, d MMMM yyyy")
         color: Theme.mauve
         font.family: Theme.font
-        font.pixelSize: 15
+        font.pixelSize: Theme.px(15)
     }
 }

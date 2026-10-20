@@ -3,6 +3,7 @@ import QtQuick
 import QtQuick.Layouts
 import Quickshell
 import Quickshell.Io
+import Quickshell.Services.Notifications
 import Quickshell.Wayland
 import "components"
 
@@ -10,6 +11,16 @@ import "components"
 Scope {
     id: root
     property bool shown: true
+    property bool dnd: false
+
+    // We are the notification daemon: keep everything until dismissed.
+    NotificationServer {
+        id: notifServer
+        keepOnReload: true
+        bodySupported: true
+        actionsSupported: true
+        onNotification: n => n.tracked = true
+    }
 
     IpcHandler {
         target: "panel"
@@ -50,8 +61,8 @@ Scope {
             border.color: Theme.surface1
 
             ColumnLayout {
-                anchors { fill: parent; margins: 22; rightMargin: 22 + Theme.radius }
-                spacing: 20
+                anchors { fill: parent; margins: Theme.px(22); rightMargin: Theme.px(22) + Theme.radius }
+                spacing: Theme.px(20)
 
                 Header {}
 
@@ -71,7 +82,7 @@ Scope {
                     }
                     QuickTile {
                         icon: "󰂛"; label: "Do not disturb"
-                        onToggled: a => root.run("makoctl mode " + (a ? "-a" : "-r") + " do-not-disturb")
+                        onToggled: a => root.dnd = a
                     }
                     QuickTile {
                         icon: "󰌾"; label: "Night light"
@@ -89,7 +100,7 @@ Scope {
 
                 ColumnLayout {
                     Layout.fillWidth: true
-                    spacing: 6
+                    spacing: Theme.px(6)
                     SliderRow {
                         icon: "󰕾"; value: 0.5
                         onMoved: v => root.run("wpctl set-volume @DEFAULT_AUDIO_SINK@ " + v.toFixed(2))
@@ -100,20 +111,14 @@ Scope {
                     }
                 }
 
-                // Notification area
-                Rectangle {
+                MediaPlayer {}
+
+                Notifications {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-                    radius: Theme.innerRadius
-                    color: Theme.mantle
-
-                    Text {
-                        anchors.centerIn: parent
-                        text: "No new notifications"
-                        font.family: Theme.font
-                        font.pixelSize: 14
-                        color: Theme.overlay0
-                    }
+                    Layout.minimumHeight: Theme.px(140)
+                    model: notifServer.trackedNotifications
+                    muted: root.dnd
                 }
 
                 // Power row
@@ -129,13 +134,13 @@ Scope {
                         delegate: Rectangle {
                             required property var modelData
                             Layout.fillWidth: true
-                            implicitHeight: 44
+                            implicitHeight: Theme.px(44)
                             radius: Theme.innerRadius
                             color: pm.containsMouse ? Theme.surface1 : Theme.surface0
                             Text {
                                 anchors.centerIn: parent
                                 text: parent.modelData.i
-                                font.pixelSize: 20
+                                font.pixelSize: Theme.px(20)
                                 color: parent.modelData.col
                             }
                             MouseArea {
