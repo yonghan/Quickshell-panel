@@ -9,32 +9,32 @@ RowLayout {
     signal moved(real value)
 
     Layout.fillWidth: true
-    spacing: 12
+    spacing: Theme.px(12)
 
     Text {
         text: row.icon
-        font.pixelSize: 18
+        font.pixelSize: Theme.px(18)
         color: Theme.mauve
-        Layout.preferredWidth: 24
+        Layout.preferredWidth: Theme.px(24)
         horizontalAlignment: Text.AlignHCenter
     }
 
     Item {
         id: track
         Layout.fillWidth: true
-        implicitHeight: 24
+        implicitHeight: Theme.px(24)
 
         Rectangle {
             anchors.verticalCenter: parent.verticalCenter
             width: parent.width
-            height: 6
-            radius: 3
+            height: Theme.px(6)
+            radius: Theme.px(3)
             color: Theme.surface1
 
             Rectangle {
                 width: parent.width * row.value
                 height: parent.height
-                radius: 3
+                radius: Theme.px(3)
                 color: Theme.mauve
             }
         }
@@ -42,9 +42,9 @@ RowLayout {
         Rectangle {
             x: (track.width - width) * row.value
             anchors.verticalCenter: parent.verticalCenter
-            width: 16
-            height: 16
-            radius: 8
+            width: Theme.px(16)
+            height: Theme.px(16)
+            radius: Theme.px(8)
             color: Theme.mauve
             border.width: 3
             border.color: Theme.base
@@ -65,9 +65,9 @@ RowLayout {
     Text {
         text: Math.round(row.value * 100)
         font.family: Theme.font
-        font.pixelSize: 12
+        font.pixelSize: Theme.px(12)
         color: Theme.subtext0
-        Layout.preferredWidth: 28
+        Layout.preferredWidth: Theme.px(28)
         horizontalAlignment: Text.AlignRight
     }
 }

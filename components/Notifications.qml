@@ -12,8 +12,8 @@ Rectangle {
     color: Theme.mantle
 
     ColumnLayout {
-        anchors { fill: parent; margins: 14 }
-        spacing: 10
+        anchors { fill: parent; margins: Theme.px(14) }
+        spacing: Theme.px(10)
 
         RowLayout {
             Layout.fillWidth: true
@@ -21,7 +21,7 @@ Rectangle {
                 text: "Notifications"
                 color: Theme.text
                 font.family: Theme.font
-                font.pixelSize: 15
+                font.pixelSize: Theme.px(15)
                 font.weight: Font.Medium
             }
             Item { Layout.fillWidth: true }
@@ -30,7 +30,7 @@ Rectangle {
                 visible: list.count > 0
                 color: clearArea.containsMouse ? Theme.text : Theme.mauve
                 font.family: Theme.font
-                font.pixelSize: 12
+                font.pixelSize: Theme.px(12)
                 MouseArea {
                     id: clearArea
                     anchors.fill: parent
@@ -49,7 +49,7 @@ Rectangle {
             Layout.fillWidth: true
             Layout.fillHeight: true
             clip: true
-            spacing: 8
+            spacing: Theme.px(8)
             model: centre.model
             boundsBehavior: Flickable.StopAtBounds
             visible: !centre.muted
@@ -58,17 +58,17 @@ Rectangle {
                 id: item
                 required property var modelData
                 width: ListView.view.width
-                implicitHeight: col.implicitHeight + 24
+                implicitHeight: col.implicitHeight + Theme.px(24)
                 height: implicitHeight
-                radius: 12
+                radius: Theme.px(12)
                 color: Theme.surface0
                 border.width: modelData.urgency === NotificationUrgency.Critical ? 1 : 0
                 border.color: Theme.red
 
                 ColumnLayout {
                     id: col
-                    anchors { fill: parent; margins: 12 }
-                    spacing: 4
+                    anchors { fill: parent; margins: Theme.px(12) }
+                    spacing: Theme.px(4)
 
                     RowLayout {
                         Layout.fillWidth: true
@@ -78,12 +78,12 @@ Rectangle {
                             elide: Text.ElideRight
                             color: Theme.mauve
                             font.family: Theme.font
-                            font.pixelSize: 11
+                            font.pixelSize: Theme.px(11)
                             font.capitalization: Font.AllUppercase
                         }
                         Text {
                             text: "󰅖"
-                            font.pixelSize: 14
+                            font.pixelSize: Theme.px(14)
                             color: closeArea.containsMouse ? Theme.red : Theme.overlay0
                             MouseArea {
                                 id: closeArea
@@ -100,7 +100,7 @@ Rectangle {
                         wrapMode: Text.Wrap
                         color: Theme.text
                         font.family: Theme.font
-                        font.pixelSize: 14
+                        font.pixelSize: Theme.px(14)
                         font.weight: Font.Medium
                     }
                     Text {
@@ -113,19 +113,19 @@ Rectangle {
                         elide: Text.ElideRight
                         color: Theme.subtext0
                         font.family: Theme.font
-                        font.pixelSize: 12
+                        font.pixelSize: Theme.px(12)
                     }
                     RowLayout {
                         Layout.fillWidth: true
                         visible: item.modelData.actions.length > 0
-                        spacing: 6
+                        spacing: Theme.px(6)
                         Repeater {
                             model: item.modelData.actions
                             delegate: Rectangle {
                                 required property var modelData
-                                implicitWidth: label.implicitWidth + 20
-                                implicitHeight: 26
-                                radius: 8
+                                implicitWidth: label.implicitWidth + Theme.px(20)
+                                implicitHeight: Theme.px(26)
+                                radius: Theme.px(8)
                                 color: actArea.containsMouse ? Theme.mauve : Theme.surface1
                                 Text {
                                     id: label
@@ -133,7 +133,7 @@ Rectangle {
                                     text: parent.modelData.text
                                     color: actArea.containsMouse ? Theme.crust : Theme.text
                                     font.family: Theme.font
-                                    font.pixelSize: 12
+                                    font.pixelSize: Theme.px(12)
                                 }
                                 MouseArea {
                                     id: actArea
@@ -156,7 +156,7 @@ Rectangle {
             verticalAlignment: Text.AlignVCenter
             text: centre.muted ? "Do not disturb is on" : "No new notifications"
             font.family: Theme.font
-            font.pixelSize: 14
+            font.pixelSize: Theme.px(14)
             color: Theme.overlay0
         }
     }

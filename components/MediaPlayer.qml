@@ -16,7 +16,7 @@ Rectangle {
 
     visible: player !== null
     Layout.fillWidth: true
-    implicitHeight: content.implicitHeight + 28
+    implicitHeight: content.implicitHeight + Theme.px(28)
     radius: Theme.innerRadius
     color: Theme.mantle
 
@@ -30,17 +30,17 @@ Rectangle {
 
     ColumnLayout {
         id: content
-        anchors { fill: parent; margins: 14 }
-        spacing: 10
+        anchors { fill: parent; margins: Theme.px(14) }
+        spacing: Theme.px(10)
 
         RowLayout {
             Layout.fillWidth: true
-            spacing: 12
+            spacing: Theme.px(12)
 
             Rectangle {
-                Layout.preferredWidth: 56
-                Layout.preferredHeight: 56
-                radius: 12
+                Layout.preferredWidth: Theme.px(56)
+                Layout.preferredHeight: Theme.px(56)
+                radius: Theme.px(12)
                 color: Theme.surface0
                 clip: true
 
@@ -53,7 +53,7 @@ Rectangle {
                 Text {
                     anchors.centerIn: parent
                     text: "󰎆"
-                    font.pixelSize: 24
+                    font.pixelSize: Theme.px(24)
                     color: Theme.mauve
                     visible: !(card.player?.trackArtUrl)
                 }
@@ -61,14 +61,14 @@ Rectangle {
 
             ColumnLayout {
                 Layout.fillWidth: true
-                spacing: 2
+                spacing: Theme.px(2)
                 Text {
                     Layout.fillWidth: true
                     text: card.player?.trackTitle || "Unknown title"
                     elide: Text.ElideRight
                     color: Theme.text
                     font.family: Theme.font
-                    font.pixelSize: 15
+                    font.pixelSize: Theme.px(15)
                     font.weight: Font.Medium
                 }
                 Text {
@@ -77,7 +77,7 @@ Rectangle {
                     elide: Text.ElideRight
                     color: Theme.subtext0
                     font.family: Theme.font
-                    font.pixelSize: 12
+                    font.pixelSize: Theme.px(12)
                 }
             }
         }
@@ -90,15 +90,15 @@ Rectangle {
         // Progress / seek bar
         Rectangle {
             Layout.fillWidth: true
-            implicitHeight: 4
-            radius: 2
+            implicitHeight: Theme.px(4)
+            radius: Theme.px(2)
             color: Theme.surface1
             visible: card.player?.lengthSupported ?? false
 
             Rectangle {
                 width: parent.width * Math.min(1, card.player.length > 0 ? card.player.position / card.player.length : 0)
                 height: parent.height
-                radius: 2
+                radius: Theme.px(2)
                 color: Theme.mauve
             }
             MouseArea {
@@ -110,7 +110,7 @@ Rectangle {
 
         RowLayout {
             Layout.alignment: Qt.AlignHCenter
-            spacing: 18
+            spacing: Theme.px(18)
 
             Repeater {
                 model: [
@@ -122,7 +122,7 @@ Rectangle {
                     id: btn
                     required property var modelData
                     readonly property bool main: modelData.act === "toggle"
-                    implicitWidth: main ? 44 : 36
+                    implicitWidth: Theme.px(main ? 44 : 36)
                     implicitHeight: implicitWidth
                     radius: width / 2
                     color: main ? Theme.mauve : (ma.containsMouse ? Theme.surface1 : "transparent")

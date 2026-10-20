@@ -11,7 +11,7 @@ Rectangle {
     signal toggled(bool active)
 
     Layout.fillWidth: true
-    implicitHeight: 72
+    implicitHeight: Theme.px(72)
     radius: Theme.innerRadius
     color: active ? Theme.mauve : (area.containsMouse ? Theme.surface1 : Theme.surface0)
 
@@ -19,13 +19,13 @@ Rectangle {
 
     ColumnLayout {
         anchors.fill: parent
-        anchors.margins: 10
-        spacing: 2
+        anchors.margins: Theme.px(10)
+        spacing: Theme.px(2)
 
         Text {
             Layout.alignment: Qt.AlignHCenter
             text: tile.icon
-            font.pixelSize: 22
+            font.pixelSize: Theme.px(22)
             color: tile.active ? Theme.crust : Theme.text
         }
         Text {
@@ -33,7 +33,7 @@ Rectangle {
             text: tile.label
             elide: Text.ElideRight
             font.family: Theme.font
-            font.pixelSize: 12
+            font.pixelSize: Theme.px(12)
             color: tile.active ? Theme.crust : Theme.subtext0
         }
     }

@@ -61,8 +61,8 @@ Scope {
             border.color: Theme.surface1
 
             ColumnLayout {
-                anchors { fill: parent; margins: 22; rightMargin: 22 + Theme.radius }
-                spacing: 20
+                anchors { fill: parent; margins: Theme.px(22); rightMargin: Theme.px(22) + Theme.radius }
+                spacing: Theme.px(20)
 
                 Header {}
 
@@ -100,7 +100,7 @@ Scope {
 
                 ColumnLayout {
                     Layout.fillWidth: true
-                    spacing: 6
+                    spacing: Theme.px(6)
                     SliderRow {
                         icon: "󰕾"; value: 0.5
                         onMoved: v => root.run("wpctl set-volume @DEFAULT_AUDIO_SINK@ " + v.toFixed(2))
@@ -116,7 +116,7 @@ Scope {
                 Notifications {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-                    Layout.minimumHeight: 140
+                    Layout.minimumHeight: Theme.px(140)
                     model: notifServer.trackedNotifications
                     muted: root.dnd
                 }
@@ -134,13 +134,13 @@ Scope {
                         delegate: Rectangle {
                             required property var modelData
                             Layout.fillWidth: true
-                            implicitHeight: 44
+                            implicitHeight: Theme.px(44)
                             radius: Theme.innerRadius
                             color: pm.containsMouse ? Theme.surface1 : Theme.surface0
                             Text {
                                 anchors.centerIn: parent
                                 text: parent.modelData.i
-                                font.pixelSize: 20
+                                font.pixelSize: Theme.px(20)
                                 color: parent.modelData.col
                             }
                             MouseArea {
